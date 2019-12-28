@@ -4,7 +4,7 @@
 clearway(){
 	{
 		#echo $1,$2,$3
-		echo "清除$1服务器上的残留文档，并创建$2到$[$2+$3]的文档"
+		echo "清除$1服务器上的残留文档" # 就不新建了，用的时候新建
 		#$1，is the server ip
 		#$2，is the start of the 目录
 		scp everyclear.sh $USER@$1:~/pingmeshtest #需要打印一次密码
@@ -36,7 +36,7 @@ do
 	((mmm++))
 done
 #mmm代表有多少个Ping
-echo $mmm
+echo "共有$mmm个服务器"
 
 count=1
 for i in ${ARRAY[*]}
