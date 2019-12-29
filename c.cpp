@@ -36,20 +36,12 @@ int main(int argc, char **argv)
     }  
   
     //定义IPV4的TCP连接的套接字描述符  
-    int sock_cli = socket(AF_INET,SOCK_STREAM, 0);  
     struct sockaddr_in servaddr;  
     memset(&servaddr, 0, sizeof(servaddr));  
     servaddr.sin_family = AF_INET;  
     servaddr.sin_addr.s_addr = inet_addr(argv[1]);  
     servaddr.sin_port = htons(PORT);  //服务器端口  
 
-    //连接服务器，成功返回0，错误返回-1  
-    if (connect(sock_cli, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)  
-    {  
-        perror("connect");  
-        exit(1);  
-    }  
-    printf("connect server(IP:%s).\n",argv[1]);  
   
     char sendbuf[BUFFER_SIZE];  
     char recvbuf[BUFFER_SIZE];  
@@ -59,6 +51,15 @@ int main(int argc, char **argv)
 
     while (1)  
     {  
+        //连接服务器，成功返回0，错误返回-1  
+        int sock_cli = socket(AF_INET,SOCK_STREAM, 0);  
+        if (connect(sock_cli, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0)  
+        {  
+            perror("connect");  
+            exit(1);  
+        }  
+        printf("connect server(IP:%s).\n",argv[1]);  
+        
         if (county==5)//为了让server端退出.
         { 
             sprintf(sendbuf,"exit");//sprintf将格式化的数据写入字符串
