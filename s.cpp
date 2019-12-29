@@ -18,7 +18,7 @@ using namespace std;
   
 //传进来的sockfd，就是互相建立好连接之后的socket文件描述符  
 //通过这个sockfd，可以完成 [服务端]<--->[客户端] 互相收发数据  
-
+// http://c.biancheng.net/cpp/html/3030.html
 
 //循环代码函数
 void str_echo(int sockfd,struct sockaddr_in server_sockaddr)  
