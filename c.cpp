@@ -59,7 +59,7 @@ int main(int argc, char **argv)
             exit(1);  
         }  
         printf("connect server(IP:%s).\n",argv[1]);  
-        
+
         if (county==5)//为了让server端退出.
         { 
             sprintf(sendbuf,"exit");//sprintf将格式化的数据写入字符串
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
         // memset(sendbuf, 0, sizeof(sendbuf));  
 
         recv(sock_cli, recvbuf, sizeof(recvbuf),0); ///接收  
-        if (strcmp(recvbuf,"hi received *\n")==0)  
+        if (strcmp(recvbuf,"hi, server received *\n")==0)  
         {
             std::cerr<<"client收到正确的 "<< county <<std::endl;
         }
@@ -138,7 +138,7 @@ int main(int argc, char **argv)
         ss<<std::to_string(ntohs(servaddr.sin_port));
         ss<<",\"";
 
-        std::cerr<<argv[2]<<std::endl;
+        // std::cerr<<argv[2]<<std::endl;
 
         // std::cerr<<"10"<<std::endl;
 
