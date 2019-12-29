@@ -21,7 +21,7 @@ using namespace std;
 // http://c.biancheng.net/cpp/html/3030.html
 
 //循环代码函数
-void str_echo(int sockfd,struct sockaddr_in server_sockaddr)  
+void str_echo(int sockfd)  
 {  
     char buffer[BUFFER_SIZE];
     char buffer1[BUFFER_SIZE];
@@ -73,6 +73,7 @@ void str_echo(int sockfd,struct sockaddr_in server_sockaddr)
         fclose(fp);
     }  
     close(sockfd);
+    memset(buffer,0,sizeof(buffer));
 }  
   
 int main(int argc, char **argv)  
@@ -101,10 +102,10 @@ int main(int argc, char **argv)
     }  
     printf("listen success.\n");  
   
+    struct sockaddr_in client_addr;  //保存客户端的一些信息
+    socklen_t length = sizeof(sockaddr_in);  
     for(;;)  
     {  
-        struct sockaddr_in client_addr;  //保存客户端的一些信息
-        socklen_t length = sizeof(client_addr);  
         //进程阻塞在accept上，成功返回非负描述字，出错返回-1  
         int conn = accept(server_sockfd, (struct sockaddr*)&client_addr,&length);  
         
@@ -116,14 +117,15 @@ int main(int argc, char **argv)
         }  
         printf("new client accepted.\n");  
         
-        pid_t childid;  
-        if(childid=fork()==0)//子进程  
-        {
-            printf("child process: %d created.\n", getpid());  
-            close(server_sockfd);//在子进程中关闭监听  
-            str_echo(conn,server_sockaddr);//处理监听的连接
-            exit(0);  
-        }
+        str_echo(conn);//处理监听的连接
+        // pid_t childid;  
+        // if(childid=fork()==0)//子进程  
+        // {
+        //     printf("child process: %d created.\n", getpid());  
+        //     close(server_sockfd);//在子进程中关闭监听  
+        //     str_echo(conn,server_sockaddr);//处理监听的连接
+        //     exit(0);  
+        // }
     }
     printf("closed.\n");  
     close(server_sockfd);  
