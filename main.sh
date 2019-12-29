@@ -36,13 +36,13 @@ pingagentclient(){
 	echo " "
 
 	sleep 5
-	{
-		echo " "
-		echo "我开启了新后台,来链接$3" 
-		echo " "
-		ssh -t -t $USER@$2 "cd pingmeshtest; bash client.sh $1 $2 $3"
-	}
-	wait $!
+	# {
+	echo " "
+	echo "我开启了新后台,来链接$3" 
+	echo " "
+	ssh -t -t $USER@$2 "cd pingmeshtest; bash client.sh $1 $2 $3"
+	# }
+	# wait $!
 	echo " "
 	mkdir -p result
 	scp $USER@$3:~/pingmeshtest/$1/result.json result/$1	

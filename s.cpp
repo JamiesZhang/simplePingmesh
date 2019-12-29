@@ -27,7 +27,7 @@ void str_echo(int sockfd)
     char buffer1[BUFFER_SIZE];
     char buffer2[BUFFER_SIZE];
 
-    pid_t pid = getpid(); 
+    // pid_t pid = getpid(); 
     while(1)  
     {  
         FILE *fp=fopen("resultabcd.json","a+"); 
@@ -42,7 +42,8 @@ void str_echo(int sockfd)
         if(strcmp(buffer,"exit")==0)  
         {  
             printf("\n");
-            printf("server端一个退了,child process: %d exited.\n",pid);  
+            // printf("server端一个退了,child process: %d exited.\n",pid);  
+            printf("server端退出");  
             printf("\n");   
             break;  
         }  
