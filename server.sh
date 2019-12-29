@@ -1,9 +1,7 @@
 #server
 echo " "
 #echo $1,$2;
-echo hostname
-echo "test ----sleep"
-sleep 10
+hostname
 mkdir -p $1
 cp ~/pingmeshtest/s.cpp $1/;
 cd $1 ;

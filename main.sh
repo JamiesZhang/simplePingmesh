@@ -22,8 +22,8 @@ pingagentserver(){
 			echo " "
 			echo "我开启了新后台,来设置$2 server" 
 			echo " "
-			ssh -t -t $USER@$2  "bash server.sh $1 $2 "
-		} &
+			ssh -t -t $USER@$2  "cd pingmeshtest; bash server.sh $1 $2 "
+		}
 		sleep 1
 		#wait $!
 	} &
@@ -64,8 +64,8 @@ ARRAY=($(awk '{print $0}' pinglist.txt))
 		echo ${i}
 		scp server.sh $USER@$i:~/pingmeshtest
 		scp client.sh $USER@$i:~/pingmeshtest
-		scp s.cpp $USER@$t:~/pingmeshtest
-		scp c.cpp $USER@$t:~/pingmeshtest
+		scp s.cpp $USER@$i:~/pingmeshtest
+		scp c.cpp $USER@$i:~/pingmeshtest
 		((mmm=mmm+1))
 	done
 }
