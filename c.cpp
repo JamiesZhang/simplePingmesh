@@ -169,10 +169,8 @@ int main(int argc, char **argv)
         
 
         county=county+1;
-
+		close(sock_cli);
         sleep(3) ;
     }  
-
-    close(sock_cli );  
     return 0;  
 }  
