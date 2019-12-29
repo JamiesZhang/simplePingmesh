@@ -34,8 +34,6 @@ pingagentclient(){
 	echo " "
 	echo "目标：实现client $2 启动"	
 	echo " "
-
-	sleep 5
 	# {
 	echo " "
 	echo "我开启了新后台,来链接$3" 
@@ -106,6 +104,6 @@ ddd=1;
 while(($ddd<=$tt))
 do 
 	pingthesame $ddd
-	$ddd=$ddd+1
+	$ddd++
 	echo $ddd
 done

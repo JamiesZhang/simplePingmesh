@@ -67,10 +67,9 @@ int main(int argc, char **argv)
         {
             sprintf(sendbuf,"send hello%d", county);
         }
-        county=county+1;
         
         std::cerr<<"\n"<<std::endl;        
-        std::cerr<<"client发送"<<std::endl;
+        std::cerr<<"client发送" << county <<std::endl;
         std::cerr<<sendbuf<<std::endl;
         std::cerr<<"\n"<<std::endl;
 
@@ -89,10 +88,10 @@ int main(int argc, char **argv)
         recv(sock_cli, recvbuf, sizeof(recvbuf),0); ///接收  
         if (strcmp(recvbuf,"hi received *\n")==0)  
         {
-            std::cerr<<"client收到正确的"<<std::endl;
+            std::cerr<<"client收到正确的 "<< county <<std::endl;
         }
         auto end = std::chrono::high_resolution_clock::now();
-        std::cerr<<"client receive:\n"<<std::endl;        
+        std::cerr<<"client receive:\n"<< county <<std::endl;        
         std::cerr<<recvbuf<<std::endl;
         std::cerr<<"\n"<<std::endl;
         
@@ -168,6 +167,7 @@ int main(int argc, char **argv)
         send(sock_cli, mm.c_str(),mm.size(),0); 
         
 
+        county=county+1;
 
         sleep(3) ;
     }  
