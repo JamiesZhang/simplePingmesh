@@ -1,18 +1,4 @@
-#打印内容，个数
-printserverinfo(){
-	echo ${ARRAY[*]}
-	echo ${#ARRAY[@]}
-}
-
-###测试循环传文件
-trasmissiontest(){
- 	for i in ${ARRAY[*]}
-	{
-		scp s.cpp $USER@$i:~
-		scp c.cpp $USER@$i:~
-	}
-}
-
+#!/bin/bash
 ###测试循环读取,号前后数据
 pirntpinglist(){
 	for j in ${list[*]}
@@ -55,7 +41,7 @@ pingagentclient(){
 		echo "我开启了新后台,来链接$3" 
 		echo " "
 		ssh -t -t $USER@$2 "cd pingmeshtest; bash client.sh $1 $2 $3"
-	} &
+	}
 	wait $!
 	echo " "
 	mkdir -p result
@@ -70,7 +56,7 @@ pingagentclient(){
 
 #Main function 调用函数，跑测试并获得程序，主函数在这里看过来
 
-#先测两台！
+mmm=0
 ARRAY=($(awk '{print $0}' pinglist.txt))
 {
 	for i in ${ARRAY[*]}
@@ -78,17 +64,12 @@ ARRAY=($(awk '{print $0}' pinglist.txt))
 		echo ${i}
 		scp server.sh $USER@$i:~/pingmeshtest
 		scp client.sh $USER@$i:~/pingmeshtest
+		scp s.cpp $USER@$t:~/pingmeshtest
+		scp c.cpp $USER@$t:~/pingmeshtest
+		((mmm=mmm+1))
 	done
-} &  
-wait $!
-
-mmm=0
-ARRAY=($(awk '{print $0}' pinglist.txt))
-for i in ${ARRAY[*]}
-do
-	((mmm=mmm+1))
-done
-
+}
+# wait $!
 echo "";
 echo "一共" $mmm "台服务器";
 echo "";
@@ -107,14 +88,6 @@ for m in ${ARRAY[*]}
 	done
 }
 
-#传文件
-for t in ${ARRAY[*]}
-{	
-	echo $t;		
-	scp s.cpperertrewq	w $USER@$t:~/pingmeshtest
-	scp c.cpp $USER@$t:~/pingmeshtest
-} 
-
 pingthesame(){
 	j=${list[$1]}
 	arr=(${j//,/ }) # arr = 分隔开
@@ -124,7 +97,7 @@ pingthesame(){
 	sleep 2
 	{
 		pingagentclient $1 $c $s; 
-	} &
+	}
 }
 
 tt=$(($mmm*$(($mmm-1))))
@@ -132,9 +105,7 @@ ddd=1;
 # ddd记录一共有几对互ping
 while(($ddd<=$tt))
 do 
-	{	
-		pingthesame $ddd
-	} &
+	pingthesame $ddd
 	$ddd=$ddd+1
 	echo $ddd
 done
