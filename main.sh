@@ -23,10 +23,10 @@ pingagentserver(){
 			echo "我开启了新后台,来设置$2 server" 
 			echo " "
 			ssh -t -t $USER@$2  "cd pingmeshtest; bash server.sh $1 $2 "
-		}
+		} & # 这里必须要加 & 后台运行，否则就因为要等待client端发送的东西造成死循环
 		sleep 1
 		#wait $!
-	} &
+	} 
 }
 
 
@@ -43,6 +43,7 @@ pingagentclient(){
 	# wait $!
 	echo " "
 	mkdir -p result
+	mkdir -p result/$1
 	scp $USER@$3:~/pingmeshtest/$1/result.json result/$1	
 	echo " "
 	echo " "
@@ -100,8 +101,7 @@ tt=$(($mmm*$(($mmm-1))))
 ddd=1;
 # ddd记录一共有几对互ping
 while(($ddd<=$tt))
-do 
+do
 	pingthesame $ddd
-	$ddd++
-	echo $ddd
+	ddd=$(expr $ddd + 1)
 done

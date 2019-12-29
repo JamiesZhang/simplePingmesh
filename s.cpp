@@ -122,7 +122,7 @@ int main(int argc, char **argv)
         char buffer1[BUFFER_SIZE];
         char buffer2[BUFFER_SIZE];
 
-        FILE *fp=fopen("resultabcd.json","a+"); 
+        FILE *fp=fopen("result.json","a+"); 
         memset(buffer,0,sizeof(buffer));  
         int len = recv(conn, buffer, sizeof(buffer),0); 
         //cerr<<buffer<<endl;
