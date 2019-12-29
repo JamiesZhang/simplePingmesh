@@ -93,9 +93,7 @@ pingthesame(){
 	c=${arr[1]};  	# c= client部分
 	pingagentserver $1 $s
 	sleep 2
-	{
-		pingagentclient $1 $c $s; 
-	}
+	pingagentclient $1 $c $s; 
 }
 
 tt=$(($mmm*$(($mmm-1))))

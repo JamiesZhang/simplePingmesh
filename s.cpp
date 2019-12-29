@@ -127,7 +127,7 @@ int main(int argc, char **argv)
         int len = recv(conn, buffer, sizeof(buffer),0); 
         //cerr<<buffer<<endl;
         std::cerr<<"\n"<<std::endl;
-        std::cerr<<"server收到"<<std::endl;
+        std::cerr<<"server收到,内容为：";
         std::cerr<<buffer<<std::endl;
         std::cerr<<"\n"<<std::endl;
 
@@ -144,7 +144,7 @@ int main(int argc, char **argv)
         send(conn,buffer1,BUFFER_SIZE,0);
 
         std::cerr<<"\n"<<std::endl;        
-        std::cerr<<"server已经发送："<<std::endl;
+        std::cerr<<"server发回确认信息：";
         std::cerr<<buffer1<<std::endl;
         std::cerr<<"\n"<<std::endl;
         memset(buffer1,0,sizeof(buffer1));  
