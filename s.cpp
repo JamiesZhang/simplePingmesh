@@ -141,7 +141,7 @@ int main(int argc, char **argv)
         }  
 
         strcpy(buffer1, "hi, server received *\n");
-        send(sockfd,buffer1,BUFFER_SIZE,0);
+        send(conn,buffer1,BUFFER_SIZE,0);
 
         std::cerr<<"\n"<<std::endl;        
         std::cerr<<"server已经发送："<<std::endl;
@@ -151,7 +151,7 @@ int main(int argc, char **argv)
 
 
         memset(buffer2,0,sizeof(buffer2));  //用于存储client端生成的json
-        recv(sockfd,buffer2,sizeof(buffer2),0);
+        recv(conn,buffer2,sizeof(buffer2),0);
         if (strcmp(buffer2,"")!=0)  
         {
             std::cerr<<"\n"<<std::endl;        
