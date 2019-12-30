@@ -132,11 +132,11 @@ plt.title('Pingmesh Heatmap (rtt*10^-5)')
 plt.xlabel('Server')
 plt.ylabel('Client')
 plt.show()
-# plt.savefig("40*40_{}.png".format(i+1))
+# plt.savefig("Pingmesh Heatmap (rtt*10^-5)")
 
 
 
-# # Second cdf;pdf  #cdf:累积分布函数； pdf:概率密度函数
+# # Second cdf;pdf pdf:概率密度函数（一个server在ping另外n-1个server的RTT分布） ；#cdf:累积分布函数（是pdf的逐渐累加的结果）
 
 
 # awk=int(input("请输入你想要的服务器的RTT图的序号序号:Choose From" +str(NEWSERVER[0])+","+str(NEWSERVER[mmm-1])+","+str(NEWSERVER[2*mmm-2])+","+str(NEWSERVER[3*mmm-3])+","+str(NEWSERVER[4*mmm-4])+","+str(NEWSERVER[5*mmm-5])+","+str(NEWSERVER[6*mmm-6])+","+str(NEWSERVER[7*mmm-7])+":   "))
