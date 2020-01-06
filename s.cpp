@@ -19,63 +19,6 @@ using namespace std;
 //传进来的sockfd，就是互相建立好连接之后的socket文件描述符  
 //通过这个sockfd，可以完成 [服务端]<--->[客户端] 互相收发数据  
 // http://c.biancheng.net/cpp/html/3030.html
-
-//循环代码函数
-// void str_echo(int sockfd)  
-// {  
-//     char buffer[BUFFER_SIZE];
-//     char buffer1[BUFFER_SIZE];
-//     char buffer2[BUFFER_SIZE];
-
-//     // pid_t pid = getpid(); 
-//     while(1)  
-//     {  
-//         FILE *fp=fopen("resultabcd.json","a+"); 
-//         memset(buffer,0,sizeof(buffer));  
-//         int len = recv(sockfd, buffer, sizeof(buffer),0); 
-//         //cerr<<buffer<<endl;
-//         std::cerr<<"\n"<<std::endl;
-//         std::cerr<<"server收到"<<std::endl;
-//         std::cerr<<buffer<<std::endl;
-//         std::cerr<<"\n"<<std::endl;
-
-//         if(strcmp(buffer,"exit")==0)  
-//         {  
-//             printf("\n");
-//             // printf("server端一个退了,child process: %d exited.\n",pid);  
-//             printf("server端退出");  
-//             printf("\n");   
-//             break;  
-//         }  
- 
-//         strcpy(buffer1, "hi received *\n");
-//         send(sockfd,buffer1,BUFFER_SIZE,0);
-
-//         std::cerr<<"\n"<<std::endl;        
-//         std::cerr<<"server发送"<<std::endl;
-//         std::cerr<<buffer1<<std::endl;
-//         std::cerr<<"\n"<<std::endl;
-//         memset(buffer1,0,sizeof(buffer1));  
-
-
-//         memset(buffer2,0,sizeof(buffer2));  //用于存储client端生成的json
-//         recv(sockfd,buffer2,sizeof(buffer2),0);
-//         if (strcmp(buffer2,"")!=0)  
-//         {
-//             std::cerr<<"\n"<<std::endl;        
-//             std::cerr<<"server收到json并写入库里面"<<std::endl;
-//             std::cerr<<buffer2<<std::endl;
-//             std::cerr<<"\n"<<std::endl;
-
-
-//             fprintf(fp,"%s\n",buffer2);
-//             memset(buffer2,0,sizeof(buffer2));  
-//         }
-//         fclose(fp);
-//     }  
-//     close(sockfd);
-//     memset(buffer,0,sizeof(buffer));
-// }  
   
 int main(int argc, char **argv)  
 {  
@@ -149,7 +92,6 @@ int main(int argc, char **argv)
         std::cerr<<"\n"<<std::endl;
         memset(buffer1,0,sizeof(buffer1));  
 
-
         memset(buffer2,0,sizeof(buffer2));  //用于存储client端生成的json
         recv(conn,buffer2,sizeof(buffer2),0);
         if (strcmp(buffer2,"")!=0)  
@@ -158,26 +100,12 @@ int main(int argc, char **argv)
             std::cerr<<"server收到json并写入库里面"<<std::endl;
             std::cerr<<buffer2<<std::endl;
             std::cerr<<"\n"<<std::endl;
-
-
             fprintf(fp,"%s\n",buffer2);
             memset(buffer2,0,sizeof(buffer2));  
         }
         fclose(fp);
-         
         close(conn);
         memset(buffer,0,sizeof(buffer));
-
-
-        // str_echo(conn);//处理监听的连接
-        // pid_t childid;  
-        // if(childid=fork()==0)//子进程  
-        // {
-        //     printf("child process: %d created.\n", getpid());  
-        //     close(server_sockfd);//在子进程中关闭监听  
-        //     str_echo(conn,server_sockaddr);//处理监听的连接
-        //     exit(0);  
-        // }
     }
     printf("closed.\n");  
     close(server_sockfd);  
