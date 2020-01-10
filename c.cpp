@@ -28,6 +28,10 @@ long int unix_timestamp()
 
 int main(int argc, char **argv)  
 {
+    
+    int epochs = GetPrivateProfileInt("Pingmesh_Config", "epochs", 10, "config.ini");  //获取配置文件 config.ini 中 Pingmesh_Config 字段下的 epochs 参数，没有的话默认值为10
+    int interval = GetPrivateProfileInt("Pingmesh_Config", "interval", 10, "config.ini");
+
     // 第一个参数是server的IP，第二个参数是client IP 
     if(argc!=3)  
     {  
@@ -46,7 +50,7 @@ int main(int argc, char **argv)
     char sendbuf[BUFFER_SIZE];  
     char recvbuf[BUFFER_SIZE];  
     //客户端将控制台输入的信息发送给服务器端，服务器原样返回信息  
-    int county= 1;// 用于计数，一共发送4次
+    int county= 0;// 用于计数，一共发送4次
     int ii=1;
 
     while (1)  
@@ -60,11 +64,11 @@ int main(int argc, char **argv)
         }  
         printf("connect server(IP:%s).\n",argv[1]);  
 
-        if (county==5)//为了让server端退出.
+        if (county==epochs)//为了让server端退出.
         { 
             sprintf(sendbuf,"exit");//sprintf将格式化的数据写入字符串
         }
-        if(county<5)
+        if(county<epochs)
         {
             sprintf(sendbuf,"send hello%d", county);
         }
@@ -170,7 +174,7 @@ int main(int argc, char **argv)
 
         county=county+1;
 		close(sock_cli);
-        sleep(3) ;
+        sleep(interval) ;
     }  
     return 0;  
 }  
