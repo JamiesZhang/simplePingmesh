@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-# 将数据存到MySQL数据库中
+# Save data to MySQL
 import MySQLdb
 import os
 import json
 
 # 在这之前，需要先在用户zjh下建一个PINGMESH的数据库
 # 打开数据库链接
-db = MySQLdb.connect("localhost", "zjh", "zjh123", "PINGMESH")  # zjh指登录数据库的用户名， zjh123指密码， PINGMESH是数据库名称
+db = MySQLdb.connect("localhost", "zjh", "zjh123", "PINGMESH", , charset='utf8')  # zjh指登录数据库的用户名， zjh123指密码， PINGMESH是数据库名称
 
 # 使用cursor()方法获取操作游标
 cursor = db.cursor()
