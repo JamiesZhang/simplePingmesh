@@ -4,17 +4,17 @@ import MySQLdb
 import os
 import json
 
-# 在这之前，需要先在用户zjh下建一个PINGMESH的数据库
-# 打开数据库链接
-db = MySQLdb.connect("localhost", "zjh", "zjh123", "PINGMESH", , charset='utf8')  # zjh指登录数据库的用户名， zjh123指密码， PINGMESH是数据库名称
+# before this, we need to build a database named 'PINGMESH' under user 'zjh'
+# open the connection of database
+db = MySQLdb.connect("localhost", "zjh", "zjh123", "PINGMESH", charset='utf8')  # zjh is username， zjh123 is pwd， PINGMESH is database name
 
-# 使用cursor()方法获取操作游标
+# use cursor() get cursor
 cursor = db.cursor()
 
-count = len(os.listdir("result"))  # 一共有count对测试
-# 为每一对测试创建一个数据库表
+count = len(os.listdir("result"))  # 'count' test
+# create a table for each test
 for n in os.listdir("result"):
-    # 创建表
+    # create table
     create = """CREATE TABLE {0} (
          timestamp  BIGINT NOT NULL,
          num        INT,
@@ -26,9 +26,9 @@ for n in os.listdir("result"):
     
     cursor.execute(create)
 
-    # 读取每一对测试中的json文件
+    # read json file of each test 
     jsonTemp = []
-    with open('./'+"result/"+str(n)+'/result.json') as f: # 打开每一组测试结果的json数据
+    with open('./'+"result/"+str(n)+'/result.json') as f:
         try:
             while True:
                 fp = f.readline()
@@ -39,7 +39,7 @@ for n in os.listdir("result"):
         except:
             f.close()
             print "the result {0} already done.".format(n)
-        for i in range(4): #对于每一行测试数据，也就是每一组的每一个时间片上的测试
+        for i in range(4):
             if i==0:
                 dictJsonData = dict(jsonTemp[i])
                 for j in dictJsonData.items():
@@ -60,18 +60,14 @@ for n in os.listdir("result"):
             clientPort = jsondict[4]
             RTT = jsondict[-2]
             
-            # 向数据库中插入数据
             insert = """INSERT INTO {0}(timestamp, num,
                         serverIP, serverPort, clientIP, clientPort, RTT)
                         VALUES ({1}, {2}, {3}, {4}, {5}, {6}, {7})""".format(n, timestamp, i, serverIP, serverPort, clientIP, clientPort, RTT)
             try:
-                # 执行sql语句
                 cursor.execute(insert)
-                # 提交到数据库执行
+                # commit to database and execute
                 db.commit()
             except:
                 # Rollback in case there is any error
                 db.rollback()
-
-# 关闭数据库链接
 db.close()

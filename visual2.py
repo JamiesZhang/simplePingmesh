@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# 从MySQL中读数据
+# read data from MySQL and draw heatmap
 from pandas import DataFrame
 import numpy as np
 import random as rd
@@ -15,7 +15,7 @@ count = 0
 for ping in pinglist:
     count += 1
 print 'There are {0} servers.'.format(str(count)) 
-# 一共有n个server，两两互ping，有 n*(n-1) 种结果
+
 pingNum = count * (count-1)
 
 TIME = []
@@ -26,13 +26,11 @@ CLIENT = []
 CLIENTPORT = []
 RTT = []
 
-# 打开数据库链接
-db = MySQLdb.connect("localhost", "zjh", "zjh123", "PINGMESH")  # zjh指登录数据库的用户名， zjh123指密码， PINGMESH是数据库名称
+db = MySQLdb.connect("localhost", "zjh", "zjh123", "PINGMESH")  # zjh is username， zjh123 is pwd， PINGMESH is database name
 
-# 使用cursor()方法获取操作游标
 cursor = db.cursor()
 
-dictJsonData = {} # 用于记录每一行json数据
+dictJsonData = {} # record data of each row
 for n in range(1, pingNum+1):
     jsonTemp = []
     
@@ -46,9 +44,8 @@ for n in range(1, pingNum+1):
 
     select = "SELECT * FROM {0}".format(n)
     try:
-        # 执行sql语句
         cursor.execute(select)
-        # 获取所有记录列表
+        # get all data of each row
         results = cursor.fetchall()
         for row in results:
             TIME[n-1].append(row[0])      # timestamp
@@ -87,14 +84,13 @@ df = DataFrame(data)
 b = df.pivot('server', 'client', 'rtt')
 # print(b)
 
-# 下面开始画图
-plt.figure("slice"+str(sli)+"-pingmesh") # 这个地方显示在文件名上
+plt.figure("slice"+str(sli)+"-pingmesh")
 # ax = plt.subplot(2,1,1)
-# 自定义的调色板，需要将这个参数cmap传入sns.heatmap的cmap参数中，详情见：https://www.cntofu.com/book/172/docs/57.md
+# Custom palette, you need to pass this parameter cmap into the cmap parameter of the heatmap, see detail: https://www.cntofu.com/book/172/docs/57.md
 # cmap=sns.diverging_palette(148, 0, s=75, l=65, n=20, center='light', as_cmap=True)  
 pic = sns.heatmap(b, vmin=0, vmax=100, center=20, cmap='YlGnBu', annot=True,  linewidths=1.5,linecolor='white', annot_kws={"size": 7})
 
-# 下面作用是突出异常值，当 RTT>50 的时候，字体会加大加粗
+# The following action is to highlight the outliers, when RTT>50, the font will be bold
 # for text in pic.texts:
 #     text.set_size(7)
 #     if int(float(text.get_text())) >int(50):
