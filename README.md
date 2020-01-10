@@ -1,5 +1,15 @@
 # simplePingmesh
 实现一个简单的pingmesh
+- 预先安装软件
+    ```
+    sudo pip install pandas
+    ```
+    ```
+    sudo pip install seaborn
+    ```
+    ```
+    sudo pip install statsmodels
+    ```
 
 - 配置pinglist
 
@@ -50,3 +60,4 @@
 - [创建新的普通用户](https://blog.csdn.net/sicongfu/article/details/51499050) 注意最后几段的操作，需要在root里建database，然后创建新的账户对root里的database有增删查改的操作
     - [删除用户等其他操作](https://blog.csdn.net/u014453898/article/details/55064312)
     - [查看所有用户](https://blog.csdn.net/qq_37996815/article/details/78934536)
+    - [MySQL在Ubuntu上的一些操作](https://www.cnblogs.com/zhuyp1015/p/3561470.html)
