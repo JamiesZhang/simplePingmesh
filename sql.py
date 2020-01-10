@@ -66,18 +66,27 @@ for n in os.listdir("result"):
             clientIP = jsondict[3]
             clientPort = jsondict[4]
             RTT = jsondict[-2]
-            
+            ##########################
+            print "timestamp={}".format(timestamp)
+            print "serverip={}".format(serverIP)
+            print "clientIP={}".format(clientIP)
+            print "RTT={}".format(RTT)
+            ##########################
             i = dictJsonData['num'][j]
             j = j+1
 
-            insert = """INSERT INTO table{0}(timestamp, num,
+            print "num={}".format(j)
+
+            insert = """REPLACE INTO table{0} (timestamp, num,
                         serverIP, serverPort, clientIP, clientPort, RTT)
-                        VALUES ({1}, {2}, {3}, {4}, {5}, {6}, {7})""".format(n, timestamp, i, serverIP, serverPort, clientIP, clientPort, RTT)
+                        VALUES ({1}, {2}, "{3}", {4}, "{5}", {6}, {7})""".format(n, timestamp, i, serverIP, serverPort, clientIP, clientPort, RTT)  # must have "" in serverIP !!!!!!!!!!!!!!! double "
             try:
                 cursor.execute(insert)
                 # commit to database and execute
                 db.commit()
+                print "insert finished"
             except:
                 # Rollback in case there is any error
-                db.rollback()
+                print "error! Rollback"
+                #db.rollback()
 db.close()
