@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import json
 from collections import defaultdict
-import MYSQLdb
+import MySQLdb
 
 pinglist = open('pinglist.txt')
 count = 0
@@ -26,7 +26,7 @@ CLIENT = []
 CLIENTPORT = []
 RTT = []
 
-db = MySQLdb.connect("localhost", "zjh", "zjh123", "PINGMESH")  # zjh is username， zjh123 is pwd， PINGMESH is database name
+db = MySQLdb.connect("localhost", "root", "zjh123", "PINGMESH", charset='utf8')  # zjh is username, zjh123 is pwd, PINGMESH is database name
 
 cursor = db.cursor()
 
@@ -42,7 +42,7 @@ for n in range(1, pingNum+1):
     CLIENTPORT.append([])
     RTT.append([])
 
-    select = "SELECT * FROM {0}".format(n)
+    select = "SELECT * FROM table{0}".format(n)
     try:
         cursor.execute(select)
         # get all data of each row
@@ -57,7 +57,7 @@ for n in range(1, pingNum+1):
             RTT[n-1].append(row[6])       # RTT
     except:
         print "Error: unable to fetch data"
-
+print TIME
 sli = int(input("Which time slice do you want to draw:CHOOSE FROM "+str(NUM[0][0])+","+str(NUM[0][count-1])+","+str(NUM[0][2*count-2])+","+str(NUM[0][3*count-3])+":  "))
 
 NEWTIME=[]
