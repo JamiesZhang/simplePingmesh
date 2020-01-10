@@ -44,12 +44,11 @@
 - 即将要做的
     - 写一个配置文件，轮询多少次从配置文件里读取
     首先有一个在各台机器安装Mysql数据库的脚本
-    - 将数据存储到MySQL中
-    - 数据库的属性如下
-        timestamp(key), serverIP, serverPort, clientIP, clientPort, RTT
+    - 将数据存储到MySQL中(ok)
     - C++ 中使用MySQL，需要用到[MySQL++](https://www.cnblogs.com/zhxilin/p/5897211.html)
     - [python MySQL](https://www.runoob.com/python/python-mysql.html)
-
+- 未解决的
+    - `sql.py` 未解决重复插入的问题，多次运行`sql.py `会重复插入数据
 
 - [C++读写配置文件](https://blog.csdn.net/jixuxiangqianzou/article/details/9070147)
 
