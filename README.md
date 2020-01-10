@@ -37,8 +37,9 @@
     - 将数据存储到MySQL中
     - 数据库的属性如下
         timestamp(key), serverIP, serverPort, clientIP, clientPort, RTT
-    - C++ 中使用MySQL，需要用到[MySQL++])(https://www.cnblogs.com/zhxilin/p/5897211.html)
+    - C++ 中使用MySQL，需要用到[MySQL++](https://www.cnblogs.com/zhxilin/p/5897211.html)
     - [python MySQL](https://www.runoob.com/python/python-mysql.html)
+
 
 - [C++读写配置文件](https://blog.csdn.net/jixuxiangqianzou/article/details/9070147)
 
@@ -46,6 +47,6 @@
     `sudo apt-get install libmysqld-dev`
 
 - [Ubuntu 上安装MySQL](https://zhuanlan.zhihu.com/p/64080934)
-- [创新新的普通用户](https://blog.csdn.net/sicongfu/article/details/51499050) 注意最后几段的操作，需要在root里建database，然后创建新的账户对root里的database有增删查改的操作
+- [创建新的普通用户](https://blog.csdn.net/sicongfu/article/details/51499050) 注意最后几段的操作，需要在root里建database，然后创建新的账户对root里的database有增删查改的操作
     - [删除用户等其他操作](https://blog.csdn.net/u014453898/article/details/55064312)
     - [查看所有用户](https://blog.csdn.net/qq_37996815/article/details/78934536)
